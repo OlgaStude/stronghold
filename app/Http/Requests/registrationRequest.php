@@ -26,7 +26,7 @@ class registrationRequest extends FormRequest
         return [
             'name' => 'required',
             'login' => 'required| unique:users',
-            'email' => 'required',
+            'email' => 'required| unique:users',
             'password' => 'required| min: 8 | confirmed',
         ];
     }
@@ -36,6 +36,7 @@ class registrationRequest extends FormRequest
         return [
             '*.required' => 'необходимо заполнить поле',
             'login.unique' => 'login is already taken',
+            'login.unique' => 'email is already taken',
             'password.min' => 'gароль должен быть не менее 8 символов',
             'password.confirmed' => 'пароли не совпадают'
         ];
