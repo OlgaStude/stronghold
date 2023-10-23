@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->foreignId('categories_id')->constrained();
+            $table->foreignId('users_id')->constrained();
             $table->string('image');
             $table->string('status');
             $table->timestamps();
