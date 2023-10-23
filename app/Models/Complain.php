@@ -12,7 +12,8 @@ class Complain extends Model
     protected $fillable = [
         'name',
         'description',
-        'category_id',
+        'categories_id',
+        'users_id',
         'image', 
         'status'
     ];
