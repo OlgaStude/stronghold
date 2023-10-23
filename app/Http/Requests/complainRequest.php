@@ -13,7 +13,7 @@ class complainRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class complainRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required| mimes:jpeg,png'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => 'Необходимо заполнить поле',
+            'image.mimes' => 'Некорректный формат изображения'
         ];
     }
 }
