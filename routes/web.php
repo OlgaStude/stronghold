@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('userPage');
+    return view('mainPage');
 })->name('name');
 
 Route::get('/register', function(){
@@ -52,5 +52,7 @@ Route::post('/addcategory', [complainController::class, 'addCategory'])->name('a
 
 
 Route::get('/complainspage', function(){
-    return view('complainPage');
+    $categories = Category::all();
+    return view('complainPage', compact('categories'));
 })->name('complainspage');
+Route::post('/addcomplaint', [complainController::class, 'addComplaint'])->name('addcomplaint');
