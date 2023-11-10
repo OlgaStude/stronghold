@@ -14,7 +14,8 @@ class Complain extends Model
         'description',
         'categories_id',
         'users_id',
-        'image', 
+        'image_old', 
+        'image_new', 
         'status'
     ];
 }
