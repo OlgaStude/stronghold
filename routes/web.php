@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\complainController;
 use App\Http\Controllers\API\userController;
 use App\Models\Category;
+use App\Models\Complain;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,22 +20,34 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Artisan::call('storage:link');
     return view('mainPage');
 })->name('name');
 
 Route::get('/register', function(){
+    
+    Artisan::call('storage:link');
     return view('Register');
 })->name('register');
 Route::post('/adduser', [userController::class, 'addUser'])->name('sendUser');
+Route::post('/solved', [complainController::class, 'changeStatus'])->name('solved');
+Route::post('/decline', [complainController::class, 'decline'])->name('decline');
+Route::get('/deletecategory', [complainController::class, 'categoryDelete'])->name('deletecategory');
 
 
 Route::get('/user', function(){
     return view('UserPage');
 })->name('userpage');
 Route::get('/admin', function(){
+    Artisan::call('storage:link');
     if(Auth::user()->status == 'admin'){
         $categories = Category::all();
-        return view('adminPage', compact('categories'));
+        $complains = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
+                    ->select('complains.id as complains_id', 'categories.name as category_name', 
+                            'complains.name', 'complains.description', 'complains.image_old', 'complains.status', 
+                            'complains.created_at')->where('complains.status', '=', 'Новая')->get();
+
+        return view('adminPage', compact('categories', 'complains'));
     }else{
         return redirect()->back();
     }
