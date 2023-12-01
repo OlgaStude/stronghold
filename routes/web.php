@@ -21,7 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     Artisan::call('storage:link');
-    return view('mainPage');
+    $complaints = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
+    ->select('complains.id as complains_id', 'categories.name as category_name', 
+            'complains.name', 'complains.description','complains.image_new', 'complains.image_old', 'complains.status', 
+            'complains.created_at')->where('complains.status', '=', 'Решено')->get();
+
+    return view('mainPage', compact('complaints'));
 })->name('name');
 
 Route::get('/register', function(){
@@ -36,18 +41,24 @@ Route::get('/deletecategory', [complainController::class, 'categoryDelete'])->na
 
 
 Route::get('/user', function(){
-    return view('UserPage');
+    $complaints = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
+    ->where('users_id', '=', Auth::user()->id)
+    ->select('complains.id as complains_id', 'categories.name as category_name', 
+            'complains.name', 'complains.description', 'complains.image_old', 'complains.status', 
+            'complains.created_at')->get();
+
+        return view('UserPage', compact('complaints'));
 })->name('userpage');
 Route::get('/admin', function(){
     Artisan::call('storage:link');
     if(Auth::user()->status == 'admin'){
         $categories = Category::all();
-        $complains = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
+        $complaints = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
                     ->select('complains.id as complains_id', 'categories.name as category_name', 
                             'complains.name', 'complains.description', 'complains.image_old', 'complains.status', 
                             'complains.created_at')->where('complains.status', '=', 'Новая')->get();
 
-        return view('adminPage', compact('categories', 'complains'));
+        return view('adminPage', compact('categories', 'complaints'));
     }else{
         return redirect()->back();
     }
@@ -70,3 +81,4 @@ Route::get('/complainspage', function(){
     return view('complainPage', compact('categories'));
 })->name('complainspage');
 Route::post('/addcomplaint', [complainController::class, 'addComplaint'])->name('addcomplaint');
+Route::get('/removecomplaint/{id}', [complainController::class, 'complaintDelete'])->name('removecomplaint');
