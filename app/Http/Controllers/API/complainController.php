@@ -75,5 +75,20 @@ class complainController extends Controller
     }
 
 
+    public function complaintDelete($id) {
+        Complain::where('id', '=', $id)->delete();
+
+        $complaints = Complain::join('categories', 'categories.id', '=', 'complains.categories_id')
+        ->where('users_id', '=', Auth::user()->id)
+        ->select('complains.id as complains_id', 'categories.name as category_name', 
+                'complains.name', 'complains.description', 'complains.image_old', 'complains.status', 
+                'complains.created_at')->get();
+
+        return redirect()->back();
+    }
+
+
+
+
 
 }
