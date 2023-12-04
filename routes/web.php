@@ -26,7 +26,9 @@ Route::get('/', function () {
             'complains.name', 'complains.description','complains.image_new', 'complains.image_old', 'complains.status', 
             'complains.created_at')->where('complains.status', '=', 'Решено')->get();
 
-    return view('mainPage', compact('complaints'));
+    $solved = count($complaints = Complain::where('status', '=', 'Решено')->get());
+
+    return view('mainPage', compact('complaints', 'solved'));
 })->name('name');
 
 Route::get('/register', function(){
