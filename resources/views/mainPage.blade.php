@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{asset('css/mainPage.css')}}">
     <title>Главная</title>
 </head>
 <body>
+<div class="container">
 @include('components/header')
-<div id="complaints_container">
+<section class="main_header">
+    <img src="{{ asset('storage/img/gradient_1.png') }}" alt="">
+    <h1>Сделаем лучше вместе!</h1>
+    <p>Нашли проблему в городе? Сообщите о ней!</p>
     @guest
-        <a href="{{ route('userlogin') }}">Оставить заявку</a>
+    <a href="{{ route('userlogin') }}"><button class="main_button">Оставить заявку</button></a>
     @endguest
     @auth
-        <a href="{{ route('complainspage') }}">Оставить заявку</a>
+        <a href="{{ route('complainspage') }}"><button class="main_button">Оставить заявку</button></a>
     @endauth
+</section>
+
 
     <p>{{ $solved }}</p>
         @foreach($complaints as $complaint)
@@ -25,8 +32,8 @@
                 <p>{{ $complaint->name }}</p>
             </div>
         @endforeach
-    </div>
 
+</div>
     <script>
         
         $('.foto').mouseenter(function(){
