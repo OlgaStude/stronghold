@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+h1, p, a, input {
+    font-family: inter;
+}
+
+.header_link {
+   font-size: 30px;
+   color: #FFFF;
+   text-decoration: none;
+   font-weight: 500;
+   margin-left: 8%;
+   font-family: inter;
+    position: relative;
+    bottom: 2vh;
+}
+
+.enter {
+    margin-left: 60%;
+}
+
+.header {
+    background: linear-gradient(180deg, #737782 -60.98%, #737782 -51.17%, rgba(115, 119, 130, 0.00) 71.68%);
+    margin-top: 2%;
+}

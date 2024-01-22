@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #737782;
+}
+
+.container {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid white;
+}
+
+.main_header {
+    background: url("../storage/img/header_bg.png");
+    height: 694px;
+}
+
+.main_header h1 {
+    position: relative;
+    bottom: 30vh;
+    margin-left: 5%;
+    font-size: 72px;
+    color: white;
+    width: 800px;
+}
+
+.main_header p {
+    position: relative;
+    bottom: 28vh;
+    margin-left: 5%;
+    color: white;
+    font-size: 40px;
+    width: 600px;
+}
+
+.main_header a {
+    text-decoration: none;
+    color: black;
+}
+
+.main_button {
+    width: 353px;
+    height: 62px;
+    border: none;
+    border-radius: 25px;
+    filter: drop-shadow(3px 7px 5px rgba(16, 21, 22, 0.25));
+    background: rgba(255, 255, 255, 0.75);
+    font-size: 30px;
+    font-weight: 500;
+    position: relative;
+    bottom: 20vh;
+    margin-left: 10%;
+    cursor: pointer;
+}
